@@ -280,7 +280,7 @@ function install_docker {
     if [[ $iversion != "" ]]; then
         echo "Skipping docker installation, version installed: $iversion"
     else
-        # echo "Installing docker..."
+        echo "Installing docker..."
         # curl -sSL https://get.docker.com/ | sudo sh
     fi
     local opts=$(bash -c 'source /etc/default/docker && echo $DOCKER_OPTS')
