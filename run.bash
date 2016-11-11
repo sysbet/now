@@ -280,18 +280,18 @@ function install_docker {
     if [[ $iversion != "" ]]; then
         echo "Skipping docker installation, version installed: $iversion"
     else
-        echo "Installing docker..."
-        curl -sSL https://get.docker.com/ | sudo sh
+        # echo "Installing docker..."
+        # curl -sSL https://get.docker.com/ | sudo sh
     fi
     local opts=$(bash -c 'source /etc/default/docker && echo $DOCKER_OPTS')
     if [[ ! $opts =~ :// ]]; then
         echo "Changing /etc/default/docker to listen on tcp://0.0.0.0:${dockerport}..."
         echo "DOCKER_OPTS=\"\$DOCKER_OPTS -H tcp://0.0.0.0:${dockerport} -H unix:///var/run/docker.sock --insecure-registry=${registryhost}:${registryport}\"" | sudo tee -a /etc/default/docker > /dev/null
     fi
-    sudo service docker stop 1>&2 2>/dev/null || true
-    sudo service docker start
+    # sudo service docker stop 1>&2 2>/dev/null || true
+    # sudo service docker start
     sleep 5
-    dockerport=$(running_port docker)
+    dockerport=2375
     if [[ $dockerport == "" ]]; then
         echo "Error: Couldn't find docker port, please check /var/log/upstart/docker.log for more information"
         echo "/var/log/upstart/docker.log contents:"
